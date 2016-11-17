@@ -1,15 +1,10 @@
 import java.util.*;
 import java.io.*;
 
+// final version with file i/o
 class Main {
 
-    // optional hard-coded data, useful for early testing
-    //POSTCODE postCodeA = new POSTCODE("EH477LX", 3);
-    //POSTCODE postCodeB = new POSTCODE("EH461AB", 2);
-    //POSTCODE postCodeC = new POSTCODE("G213CF", 5);
-    //POSTCODE postCodeD = new POSTCODE("EH482TR", 1);
-    //POSTCODE postCodeE = new POSTCODE("G168AS", 1);
-    //POSTCODE postCodeList[]= {postCodeA, postCodeB, postCodeC, postCodeD, postCodeE};
+    // optional hard-coded data removed
 
     // to gather the text for file output
     String fileContent = "";
@@ -41,46 +36,19 @@ class Main {
             postCodeList[i] = new POSTCODE(dataRows[i]);
         }
     }
-    // optional keyboard input
-    public void enterPostCodeData() {
-        // a "for each" loop, no index required, just a placeholder variable
-        for (POSTCODE nextPostCode: postCodeList) {
-            nextPostCode.enterPlayers();
-            nextPostCode.enterPostCode();
-        }
-    }
-    // optional keyboard input
-    public void enterPostCodeData2() {
-        // traditional index based for loop
-        for(int i = 0; i < 5; i++) { 
-            postCodeList[i].enterPlayers();
-            postCodeList[i].enterPostCode();
-        }
-    }
-    // optional keyboard input
-    public void enterPostCodeData3() {
-        // using a conditional loop with explicit counter as array index
-        int counter = 0;
-        while (counter < 5) {
-            postCodeList[counter].enterPlayers();
-            postCodeList[counter].enterPostCode();
-            counter++;
-        }
-    }   
+    // optional keyboard input removed   
 
     public void findMaxPlayers() {
         // set max player to first players in first postcode in list
         int maxPlayers = postCodeList[0].getPlayers();
         // repeat for the rest of the list
-        for (int i = 1; i < 5; i++) {
+        for (int i = 1; i < postCodeList.length; i++) {
             // if the players in the next postcode in the list is more than max players
             if (maxPlayers < postCodeList[i].getPlayers()) {
                 // update the max players to the players in the next postcode
                 maxPlayers = postCodeList[i].getPlayers();
-                // end if
-            }
-            // end loop 
-        }
+            }  // end if 
+        }  // end loop
         // display the max player
         System.out.println("Max players is: " + maxPlayers);
     }
@@ -110,39 +78,8 @@ class Main {
         // send completed output string to the file
         resultFile.writeCSVtable("winners.csv", fileContent);
     }
-    // demo: call sharePrize to display prize for every postcode area
-    public void displayPrizes1() {
-        for (POSTCODE nextPostCode: postCodeList) {
-            nextPostCode.sharePrize(1000);
-        }
-    }
-    // demo: display prizes for "G" (Glasgow) postcode area only
-    public void displayPrizes2() {
-        for (POSTCODE nextPostCode: postCodeList) {
-            if (((nextPostCode.getPostCode()).substring(0,1)).equals("G")) {
-                nextPostCode.sharePrize(1100);
-            }
-            else
-            {
-                nextPostCode.sharePrize(1000);
-            }
-        }
-    }
-    // demo: sum total conditional on postcode area
-    public void displayPrizes3() {
-        int totalPrize = 0;
-        for (POSTCODE nextPostCode: postCodeList) {
-            if (((nextPostCode.getPostCode()).substring(0,1)).equals("G")) {
-                totalPrize += 1100;
-            }
-            else
-            {
-                totalPrize += 1000;
-            }
-        }
-        System.out.println("Total prize: " + totalPrize);
-    }
-    // demo: combine previous demos into a single method
+
+    // demo: combined demos into a single method
     public void displayPrizes() {      
         int totalPrize = 0;
         for (POSTCODE nextPostCode: postCodeList) {
@@ -158,15 +95,19 @@ class Main {
         }
         System.out.println("Total prize: " + totalPrize);
     }
+
     // top level algorithm
     public void processPostCode()   throws IOException 
     { 
-        //enterPostCodeData();
+        // enter data from file
         setUpData();
+        // process data using standard algorithms
         findMaxPlayers();
         countPlayers();
         findPostCode();
+        // output results
         displayPrizes();
+        // save data
         storePrizes();
     }
 
