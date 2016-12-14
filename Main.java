@@ -6,8 +6,6 @@ class Main {
 
     // optional hard-coded data removed
 
-    // to gather the text for file output
-    String fileContent = "";
     WRITEFILE resultFile = new WRITEFILE();
 
     // optional file input
@@ -15,28 +13,17 @@ class Main {
     POSTCODE postCodeList[]; 
     public void setUpData() throws IOException
     {
-        // optional developer info
-        System.out.println("** Prepering to read data file");
-
-        // request file to be read and data row contents returned as as String array
+        // read file into dataRows (contents returned as String [ ])
         String[] dataRows = dataFile.readCSVtable("postcodeData.csv");
-        // store a count of how many rows were read (number of array elements)
+        // store how many rows were read (size of array)
         int noOfPcodes = dataRows.length;
-
-        // optional developer info
-        System.out.println("** " + noOfPcodes + " rows read.\n\n");
-
-        // no headings so don't read a header row
-
         // create array element space
         postCodeList = new POSTCODE[noOfPcodes];
-
         // now use each row from file to create postcode area object
         for (int i = 0; i < noOfPcodes; i++) {
             postCodeList[i] = new POSTCODE(dataRows[i]);
         }
-    }
-    // optional keyboard input removed   
+    }  
 
     public void findMaxPlayers() {
         // set max player to first players in first postcode in list
@@ -63,16 +50,20 @@ class Main {
 
     public void storePrizes()  throws IOException
     {
-        // headings
+        // to gather the text for file output
+        String fileContent = "";
+        boolean resultRowsFlag = false;
+        // headings (optional)
         fileContent = fileContent + "PostCode" + "," + "Players" + "\n";
-        if (((postCodeList[0].getPostCode()).substring(0,1)).equals("G")) {
-            // get string of data from first object
-            fileContent = fileContent + postCodeList[0].writePostCode();
-        }
         // get string of data from rest of object
-        for (int i = 1; i<postCodeList.length; i++) {
+        for (int i = 0; i<postCodeList.length; i++) {
             if (((postCodeList[i].getPostCode()).substring(0,1)).equals("G")) {
-                fileContent = fileContent + "\n" + postCodeList[i].writePostCode();
+                if (resultRowsFlag == true) {
+                    fileContent = fileContent + "\n";
+                } else {
+                    resultRowsFlag = true;
+                }
+                fileContent = fileContent + postCodeList[i].writePostCode();                
             }
         }
         // send completed output string to the file

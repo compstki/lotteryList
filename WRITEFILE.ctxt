@@ -1,4 +1,5 @@
 #BlueJ class context
-comment0.params=filename\ outBuffer
-comment0.target=void\ writeCSVtable(java.lang.String,\ java.lang.String)
-numComments=1
+comment0.target=WRITEFILE
+comment1.params=filename\ outBuffer
+comment1.target=void\ writeCSVtable(java.lang.String,\ java.lang.String)
+numComments=2

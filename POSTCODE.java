@@ -13,7 +13,10 @@ class POSTCODE {
         // store 1st item from the row
         this.postCode = dataItems[0];
         // the next line (optionally) needed to remove trailing newline
-        dataItems[1] = dataItems[1].substring(0,dataItems[1].length()-1);
+        if (dataItems[1].substring(dataItems[1].length()-1,dataItems[1].length()).equals("\r")) 
+        {
+            dataItems[1] = dataItems[1].substring(0,dataItems[1].length()-1);
+        }
         // store last item from row
         this.players = Integer.parseInt(dataItems[1]);
     }
@@ -30,6 +33,10 @@ class POSTCODE {
 
     public String getPostCode() {
         return postCode;
+    }
+    
+    public String getPostCodeArea() {
+        return postCode.substring(0,1);
     }
 
     // calculate and display individual prize share
