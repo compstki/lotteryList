@@ -10,3 +10,5 @@ VERSION or DATE:
 HOW TO START THIS PROJECT:
 AUTHORS:
 USER INSTRUCTIONS:
+
+[![Run on Repl.it](https://repl.it/badge/github/compstki/lotteryList)](https://repl.it/github/compstki/lotteryList)
